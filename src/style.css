@@ -47,6 +47,9 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  max-width: 100%;
+  margin: 0 auto;
+  /* Center the content and limit the width */
 }
 
 /* Add an overlay to make content more readable against the map */
@@ -145,6 +148,9 @@ header {
   padding: 0;
   border: none;
   overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
 }
 
 .logo-container {
@@ -258,6 +264,8 @@ header {
   text-align: center;
   padding: 2rem;
   width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 /* Navigation */
@@ -267,6 +275,8 @@ nav {
   position: sticky;
   top: 0;
   z-index: 10;
+  width: 100%;
+  max-width: 100%;
 }
 
 nav ul {
@@ -353,8 +363,9 @@ nav li {
 /* Main Content */
 main {
   padding: 1rem;
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .section-container {
@@ -865,13 +876,16 @@ footer {
   background-color: var(--primary-color);
   border-top: var(--border-pixel) solid var(--secondary-color);
   padding: 2rem 1rem 1rem;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
 }
 
 .footer-content {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
