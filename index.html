@@ -32,27 +32,108 @@
         if (isPreview) {
             // In preview mode, CSS is directly in the root
             cssLink.href = 'style.min.css';
+            
+            // Fix image paths for preview mode by adding base path
+            document.head.innerHTML += `
+                <style>
+                    /* Fix image paths in preview mode */
+                    [class*="-icon"],
+                    .parallax-layer,
+                    .mobile-image,
+                    .feature-icon,
+                    .pixel-sword,
+                    .pixel-scroll,
+                    .gallery-item img {
+                        background-image: var(--bg-image-url);
+                    }
+                    
+                    /* Override specific images */
+                    .sky-layer { --bg-image-url: url('./Clouds 1/1.png') !important; }
+                    .clouds-back-layer { --bg-image-url: url('./Clouds 1/2.png') !important; }
+                    .clouds-front-layer { --bg-image-url: url('./Clouds 1/4.png') !important; }
+                    
+                    .mobile-image { background-image: none !important; }
+                    
+                    .flashcard-icon { --bg-image-url: url('./images/flashcard-icon.png') !important; }
+                    .achievement-icon { --bg-image-url: url('./images/achievement-icon.png') !important; }
+                    .social-icon { --bg-image-url: url('./images/social-icon.png') !important; }
+                    .theme-icon { --bg-image-url: url('./images/theme-icon.png') !important; }
+                    
+                    .whatsapp-icon { --bg-image-url: url('./images/Whatsapp.png') !important; }
+                    .facebook-icon { --bg-image-url: url('./images/Facebook.png') !important; }
+                    .twitter-icon { --bg-image-url: url('./images/Twitter.png') !important; }
+                    .email-icon { --bg-image-url: url('./images/Gmail.png') !important; }
+                    .tiktok-icon { --bg-image-url: url('./images/TikTok.png') !important; }
+                    
+                    .pixel-sword { --bg-image-url: url('./images/pixel-sword.png') !important; }
+                    .pixel-scroll { --bg-image-url: url('./images/pixel-scroll.png') !important; }
+                    .copy-icon { --bg-image-url: url('./images/link.png') !important; }
+                    
+                    .social-icon.twitter { --bg-image-url: url('./images/Twitter.png') !important; }
+                    .social-icon.discord { --bg-image-url: url('./images/Discord.png') !important; }
+                    .social-icon.instagram { --bg-image-url: url('./images/Instagram.png') !important; }
+                    .social-icon.tiktok { --bg-image-url: url('./images/TikTok.png') !important; }
+                    
+                    .sword-icon { --bg-image-url: url('./images/sword-icon.png') !important; }
+                    .scroll-icon { --bg-image-url: url('./images/scroll-icon.png') !important; }
+                    .shield-icon { --bg-image-url: url('./images/shield-icon.png') !important; }
+                    .castle-icon { --bg-image-url: url('./images/castle-icon.png') !important; }
+                </style>
+            `;
+            
+            // Update image src attributes in preview mode
+            window.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('img[src^="public/"]').forEach(img => {
+                    // Remove 'public/' from the start
+                    img.src = img.src.replace('public/', './');
+                });
+            });
+            
         } else if (isDevelopment) {
             // In dev mode, CSS is in the src folder
             cssLink.href = 'src/style.css';
         } else {
-            // In production mode, use minified CSS
-            cssLink.href = 'src/style.min.css';
+            // In production mode, use minified CSS directly in the root
+            cssLink.href = 'style.min.css';
+            
+            // Fix image paths for production mode by adding base path
+            document.head.innerHTML += `
+                <style>
+                    /* Fix image paths in production mode */
+                    [class*="-icon"],
+                    .parallax-layer,
+                    .mobile-image,
+                    .feature-icon,
+                    .pixel-sword,
+                    .pixel-scroll,
+                    .gallery-item img {
+                        background-image: var(--bg-image-url);
+                    }
+                </style>
+            `;
+            
+            // Update image src attributes in production mode
+            window.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('img[src^="public/"]').forEach(img => {
+                    // Remove 'public/' from the start for production
+                    img.src = img.src.replace('public/', './');
+                });
+            });
         }
         
         document.head.appendChild(cssLink);
         
-        // If in production, preload the minified files
+        // If in production, preload the minified files with correct paths
         if (!isDevelopment) {
             const cssPreload = document.createElement('link');
             cssPreload.rel = 'preload';
-            cssPreload.href = 'src/style.min.css';
+            cssPreload.href = 'style.min.css';
             cssPreload.as = 'style';
             document.head.appendChild(cssPreload);
             
             const jsPreload = document.createElement('link');
             jsPreload.rel = 'preload';
-            jsPreload.href = 'src/main.min.js';
+            jsPreload.href = 'main.min.js';
             jsPreload.as = 'script';
             document.head.appendChild(jsPreload);
         }
@@ -252,9 +333,7 @@
     </main>
 
     <footer>
-        <!-- <div class="animated-rocks-container">
-            <div class="animated-rock" id="animated-rock"></div>
-        </div> -->
+       
         <div class="footer-content">
             <div class="footer-logo">
                 <img src="public/images/quizsword-logo-small.png" alt="QuizSword Logo" width="60" height="60" loading="lazy">
@@ -331,8 +410,8 @@
             // In dev mode, JS is in the src folder
             scriptElement.src = 'src/main.js';
         } else {
-            // In production mode, use minified JS
-            scriptElement.src = 'src/main.min.js';
+            // In production mode, use minified JS directly in the root
+            scriptElement.src = 'main.min.js';
         }
         
         scriptElement.defer = true;

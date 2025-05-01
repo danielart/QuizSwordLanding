@@ -242,23 +242,17 @@ updateCountdown()
 // Preload images to avoid flashing
 function preloadImages () {
   const imageUrls = [
-    'public/images/pixel-sword.png',
-    'public/images/pixel-scroll.png',
-    'public/images/sword-icon.png',
-    'public/images/scroll-icon.png',
-    'public/images/shield-icon.png',
-    'public/images/castle-icon.png',
-    'public/images/flashcard-icon.png',
-    'public/images/achievement-icon.png',
-    'public/images/social-icon.png',
-    'public/images/theme-icon.png',
     // Social media icons
     'public/images/Twitter.png',
     'public/images/Instagram.png',
     'public/images/TikTok.png',
     'public/images/Whatsapp.png',
     'public/images/Gmail.png',
-    'public/images/Youtube.png'
+    'public/images/Youtube.png',
+    'public/images/link.png',
+    'public/images/Discord.png',
+    'public/images/Discord.png',
+    'public/images/Facebook.png'
   ]
 
   imageUrls.forEach(url => {
@@ -365,8 +359,6 @@ document.head.appendChild(styleElement)
 function initSocialSharing () {
   // Track sharing events
   const trackShare = platform => {
-    console.log(`Shared via ${platform}`) // Replace with actual analytics tracking
-
     // Show feedback to user
     const feedbackEl = document.createElement('div')
     feedbackEl.className = 'share-feedback'
@@ -650,73 +642,7 @@ function initParallaxHeader () {
   }
 
   animateClouds()
-
-  // Log information about the current cloud set (for debugging)
-  console.log(
-    `Using ${cloudSet} based on time: ${new Date().getHours()}:${new Date().getMinutes()} or URL parameter`
-  )
 }
 
 // Initialize parallax header
 initParallaxHeader()
-
-// Rock sprite animation control
-function initRockAnimation () {
-  const rockElement = document.getElementById('animated-rock')
-
-  if (!rockElement) return
-
-  // Default animation speed in seconds
-  let animationSpeed = 0.8
-
-  // Function to update animation speed
-  function updateRockSpeed (speedInSeconds) {
-    // Clamp speed between 0.1 (very fast) and 3 (very slow)
-    const clampedSpeed = Math.max(0.1, Math.min(3, speedInSeconds))
-    rockElement.style.animationDuration = `${clampedSpeed}s`
-    console.log(`Rock animation speed set to ${clampedSpeed}s`)
-    return clampedSpeed
-  }
-
-  // Check URL parameters for speed control
-  function checkSpeedFromURL () {
-    const urlParams = new URLSearchParams(window.location.search)
-    const speedParam = urlParams.get('rockSpeed')
-
-    if (speedParam && !isNaN(parseFloat(speedParam))) {
-      animationSpeed = updateRockSpeed(parseFloat(speedParam))
-    }
-  }
-
-  // Initial setup
-  checkSpeedFromURL()
-
-  // Add speed control to global window object for easy access from console
-  window.rockControls = {
-    // Increase speed (lower duration value)
-    speedUp: function (factor = 0.8) {
-      animationSpeed = updateRockSpeed(animationSpeed * factor)
-      return animationSpeed
-    },
-
-    // Decrease speed (higher duration value)
-    slowDown: function (factor = 1.25) {
-      animationSpeed = updateRockSpeed(animationSpeed * factor)
-      return animationSpeed
-    },
-
-    // Set exact speed
-    setSpeed: function (speedInSeconds) {
-      animationSpeed = updateRockSpeed(speedInSeconds)
-      return animationSpeed
-    },
-
-    // Get current speed
-    getSpeed: function () {
-      return animationSpeed
-    }
-  }
-}
-
-// Initialize rock animation when page is loaded
-initRockAnimation()

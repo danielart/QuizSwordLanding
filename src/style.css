@@ -832,44 +832,6 @@ figcaption {
   animation: bounce 2s infinite;
 }
 
-/* Animated Rock Sprite */
-.animated-rocks-container {
-  position: relative;
-  width: 100%;
-  height: 64px;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  margin-top: -30px;
-  z-index: 1;
-}
-
-.animated-rock {
-  width: 64px;
-  height: 64px;
-  background-image: url('../public/map/Rocks_02.png');
-  background-repeat: no-repeat;
-  background-size: 512px 64px;
-  /* 8 frames * 64px width = 512px total width */
-  image-rendering: pixelated;
-  animation: rockAnimation 0.8s steps(8) infinite;
-  transform: scale(1.5);
-  /* Make rock slightly larger */
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
-}
-
-/* Rock sprite animation keyframes */
-@keyframes rockAnimation {
-  from {
-    background-position: 0 0;
-  }
-
-  to {
-    background-position: -512px 0;
-  }
-
-  /* 8 frames * 64px = 512px total width */
-}
 
 /* Footer */
 footer {
