@@ -10,9 +10,54 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" as="style">
     <link rel="preload" href="public/images/mobile.png" as="image">
     <link rel="preload" href="public/images/quizsword-logo.png" as="image">
-    <link rel="preload" href="src/style.min.css" as="style">
-    <link rel="preload" href="src/main.min.js" as="script">
-    <link rel="stylesheet" href="src/style.min.css">
+
+    <!-- Development/Production CSS detection -->
+    <script>
+        // Check if we're in development, preview, or production mode
+        const isDevelopment = window.location.hostname === 'localhost' || 
+                              window.location.hostname === '127.0.0.1';
+        
+        // Check if we're in preview mode (served from the dist directory)
+        // In preview mode, files are served directly from root
+        const isPreview = isDevelopment && (
+            window.location.port === '4173' || 
+            window.location.port === '4174' || 
+            window.location.port === '4175'
+        );
+        
+        // Create the appropriate CSS link element
+        const cssLink = document.createElement('link');
+        cssLink.rel = 'stylesheet';
+        
+        if (isPreview) {
+            // In preview mode, CSS is directly in the root
+            cssLink.href = 'style.min.css';
+        } else if (isDevelopment) {
+            // In dev mode, CSS is in the src folder
+            cssLink.href = 'src/style.css';
+        } else {
+            // In production mode, use minified CSS
+            cssLink.href = 'src/style.min.css';
+        }
+        
+        document.head.appendChild(cssLink);
+        
+        // If in production, preload the minified files
+        if (!isDevelopment) {
+            const cssPreload = document.createElement('link');
+            cssPreload.rel = 'preload';
+            cssPreload.href = 'src/style.min.css';
+            cssPreload.as = 'style';
+            document.head.appendChild(cssPreload);
+            
+            const jsPreload = document.createElement('link');
+            jsPreload.rel = 'preload';
+            jsPreload.href = 'src/main.min.js';
+            jsPreload.as = 'script';
+            document.head.appendChild(jsPreload);
+        }
+    </script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -263,7 +308,36 @@
         </div>
     </footer>
 
-    <script src="src/main.min.js" defer></script>
+    <!-- JavaScript Environment Detection -->
+    <script>
+        // Check if we're in development or production
+        const isDevEnvironment = window.location.hostname === 'localhost' || 
+                              window.location.hostname === '127.0.0.1';
+        
+        // Check if we're in preview mode (served from the dist directory)
+        const isPreviewMode = isDevEnvironment && (
+            window.location.port === '4173' || 
+            window.location.port === '4174' || 
+            window.location.port === '4175'
+        );
+        
+        // Create and append the appropriate script tag
+        const scriptElement = document.createElement('script');
+        
+        if (isPreviewMode) {
+            // In preview mode, JS is directly in the root
+            scriptElement.src = 'main.min.js';
+        } else if (isDevEnvironment) {
+            // In dev mode, JS is in the src folder
+            scriptElement.src = 'src/main.js';
+        } else {
+            // In production mode, use minified JS
+            scriptElement.src = 'src/main.min.js';
+        }
+        
+        scriptElement.defer = true;
+        document.body.appendChild(scriptElement);
+    </script>
     <!-- Ensure all JavaScript is deferred to avoid render-blocking -->
 </body>
 </html>

@@ -343,6 +343,20 @@ styleElement.textContent = `
       transform: scale(1);
     }
   }
+  
+  /* Update features grid to always be two columns */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem;
+  }
+  
+  /* Adjust responsiveness for features */
+  @media (max-width: 576px) {
+    .features-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
 `
 
 document.head.appendChild(styleElement)
@@ -489,7 +503,7 @@ function initSocialSharing () {
     }
     
     .copy-icon {
-      background-image: url('../public/images/copy-icon.png');
+      background-image: url('../public/images/link.png');
     }
     
     .copy-success {

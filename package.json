@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && npm run copy-assets",
     "preview": "vite preview",
-    "build:minify": "npx clean-css-cli -o src/style.min.css src/style.css && npx terser src/main.js -o src/main.min.js"
+    "build:minify": "npx clean-css-cli -o src/style.min.css src/style.css && npx terser src/main.js -o src/main.min.js",
+    "copy-assets": "cp src/main.min.js dist/ && cp src/style.min.css dist/"
   },
   "devDependencies": {
     "vite": "^6.3.1"
