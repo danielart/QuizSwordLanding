@@ -7,7 +7,12 @@
     <meta name="keywords" content="quiz, sword, flashcards, retro game, pixel art, medieval, study, achievements, ranking, social learning, anki alternative, quizlet alternative">
     <meta name="author" content="QuizSword Team">
     <title>QuizSword - The Ultimate Medieval Quiz Adventure</title>
-    <link rel="stylesheet" href="src/style.css">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" as="style">
+    <link rel="preload" href="public/images/mobile.png" as="image">
+    <link rel="preload" href="public/images/quizsword-logo.png" as="image">
+    <link rel="preload" href="src/style.min.css" as="style">
+    <link rel="preload" href="src/main.min.js" as="script">
+    <link rel="stylesheet" href="src/style.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -30,7 +35,8 @@
             <div class="parallax-layer clouds-front-layer"></div>
             <div class="header-content">
                 <div class="logo-container">
-                    <img src="public/images/quizsword-logo.png" alt="QuizSword Logo" width="120" height="120">
+
+                    <img src="public/images/quizsword-logo.png" alt="QuizSword Logo" width="120" height="120" loading="lazy">
                     <h1>QuizSword</h1>
                 </div>
                 <p class="tagline">Embark on a medieval journey of knowledge and adventure!</p>
@@ -116,7 +122,7 @@
                     </div>
                     <div class="mobile-showcase">
                         <div class="mobile-container">
-                            <img src="public/images/mobile.png" alt="QuizSword mobile app interface" class="mobile-image">
+                            <img src="public/images/mobile.png" alt="QuizSword mobile app interface" class="mobile-image" loading="lazy">
                         </div>
                     </div>
                 </div>
@@ -201,12 +207,12 @@
     </main>
 
     <footer>
-        <div class="animated-rocks-container">
+        <!-- <div class="animated-rocks-container">
             <div class="animated-rock" id="animated-rock"></div>
-        </div>
+        </div> -->
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="public/images/quizsword-logo-small.png" alt="QuizSword Logo" width="60" height="60">
+                <img src="public/images/quizsword-logo-small.png" alt="QuizSword Logo" width="60" height="60" loading="lazy">
                 <p>QuizSword</p>
             </div>
             <div class="footer-links">
@@ -257,6 +263,7 @@
         </div>
     </footer>
 
-    <script src="src/main.js"></script>
+    <script src="src/main.min.js" defer></script>
+    <!-- Ensure all JavaScript is deferred to avoid render-blocking -->
 </body>
 </html>

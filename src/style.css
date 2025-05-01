@@ -64,10 +64,7 @@ body::before {
 
 h1,
 h2,
-h3,
-h4,
-h5,
-h6 {
+h3 {
   font-family: 'Press Start 2P', cursive;
   line-height: 1.3;
   margin-top: 0;
@@ -841,17 +838,26 @@ figcaption {
   height: 64px;
   background-image: url('../public/map/Rocks_02.png');
   background-repeat: no-repeat;
-  background-size: 512px 64px; /* 8 frames * 64px width = 512px total width */
+  background-size: 512px 64px;
+  /* 8 frames * 64px width = 512px total width */
   image-rendering: pixelated;
   animation: rockAnimation 0.8s steps(8) infinite;
-  transform: scale(1.5); /* Make rock slightly larger */
+  transform: scale(1.5);
+  /* Make rock slightly larger */
   filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
 }
 
 /* Rock sprite animation keyframes */
 @keyframes rockAnimation {
-  from { background-position: 0 0; }
-  to { background-position: -512px 0; } /* 8 frames * 64px = 512px total width */
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: -512px 0;
+  }
+
+  /* 8 frames * 64px = 512px total width */
 }
 
 /* Footer */
@@ -1045,14 +1051,6 @@ footer {
   background-image: url('../public/images/TikTok.png');
 }
 
-.instagram-icon {
-  background-image: url('../public/images/Instagram.png');
-}
-
-.youtube-icon {
-  background-image: url('../public/images/Youtube.png');
-}
-
 /* Footer sharing section */
 .footer-share {
   flex: 1;
@@ -1179,8 +1177,7 @@ footer {
     flex-direction: row;
   }
 
-  .info-text,
-  .info-image {
+  .info-text {
     flex: 1;
   }
 
