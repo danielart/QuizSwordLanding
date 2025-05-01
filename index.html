@@ -3,65 +3,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="QuizSword: A retro pixel art game for quizzes and flashcards. Create, study, and achieve greatness in a medieval-themed world.">
-    <meta name="keywords" content="quiz, sword, flashcards, retro game, pixel art, medieval, study, achievements, ranking, social">
+    <meta name="description" content="QuizSword: A retro pixel art game for quizzes and flashcards. Create, study, and achieve greatness in a medieval-themed world of knowledge.">
+    <meta name="keywords" content="quiz, sword, flashcards, retro game, pixel art, medieval, study, achievements, ranking, social learning, anki alternative, quizlet alternative">
     <meta name="author" content="QuizSword Team">
-    <title>QuizSword - The Ultimate Quiz Adventure</title>
-    <link rel="stylesheet" href="/src/style.css">
+    <title>QuizSword - The Ultimate Medieval Quiz Adventure</title>
+    <link rel="stylesheet" href="src/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" href="public/images/favicon.png" type="image/png">
+    <!-- Open Graph tags for social sharing -->
+    <meta property="og:title" content="QuizSword - The Ultimate Medieval Quiz Adventure">
+    <meta property="og:description" content="Create flashcards, study units, and conquer challenges in a pixel art medieval world.">
+    <meta property="og:image" content="public/images/og-image.png">
+    <meta property="og:url" content="https://quizsword.com">
+    <meta property="og:type" content="website">
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <header>
-        <h1>QuizSword</h1>
-        <p>Embark on a medieval journey of knowledge and adventure!</p>
+        <div class="parallax-header">
+            <div class="parallax-layer sky-layer"></div>
+            <div class="parallax-layer clouds-back-layer"></div>
+            <div class="parallax-layer clouds-front-layer"></div>
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="public/images/quizsword-logo.png" alt="QuizSword Logo" width="120" height="120">
+                    <h1>QuizSword</h1>
+                </div>
+                <p class="tagline">Embark on a medieval journey of knowledge and adventure!</p>
+                <div class="header-decorations">
+                    <div class="pixel-sword"></div>
+                    <div class="pixel-scroll"></div>
+                </div>
+            </div>
+        </div>
     </header>
-    <nav>
-        <ul>
-            <li><a href="#launch">Launch</a></li>
-            <li><a href="#info">Info</a></li>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#subscribe">Subscribe</a></li>
+
+    <nav aria-label="Main navigation">
+        <button class="menu-toggle" aria-expanded="false" aria-controls="main-menu">
+            <span class="sr-only">Menu</span>
+            <span class="menu-icon"></span>
+        </button>
+        <ul id="main-menu">
+            <li><a href="#launch" class="nav-link">Launch</a></li>
+            <li><a href="#info" class="nav-link">Info</a></li>
+            <li><a href="#features" class="nav-link">Features</a></li>
+            <li><a href="#gallery" class="nav-link">Gallery</a></li>
+            <li><a href="#subscribe" class="nav-link">Subscribe</a></li>
         </ul>
     </nav>
-    <main>
-        <section id="launch">
-            <h2>Launch</h2>
-            <p>Coming soon! Prepare your swords and minds for the ultimate quiz adventure.</p>
-        </section>
-        <section id="info">
-            <h2>Info</h2>
-            <p>QuizSword combines the fun of retro gaming with the power of learning. Create flashcards, study units, and conquer challenges.</p>
-        </section>
-        <section id="features">
-            <h2>Features</h2>
-            <ul>
-                <li>Customizable Flashcards</li>
-                <li>Achievements and Rankings</li>
-                <li>Social Features</li>
-                <li>Pixel Art Medieval Theme</li>
-            </ul>
-        </section>
-        <section id="gallery">
-            <h2>Gallery</h2>
-            <p>Explore the world of QuizSword through these snapshots:</p>
-            <div class="gallery">
-                <img src="/public/mock-image1.png" alt="Mock image 1">
-                <img src="/public/mock-image2.png" alt="Mock image 2">
-                <img src="/public/mock-image3.png" alt="Mock image 3">
+
+    <main id="main-content">
+        <section id="launch" class="section-container">
+            <div class="pixel-border">
+                <h2>Launch <span class="pixel-icon sword-icon"></span></h2>
+                <p>Coming soon! Prepare your swords and minds for the ultimate quiz adventure.</p>
+                <div class="countdown">
+                    <div class="countdown-item">
+                        <span class="count days">30</span>
+                        <span class="label">Days</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="count hours">12</span>
+                        <span class="label">Hours</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="count minutes">45</span>
+                        <span class="label">Minutes</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="count seconds">00</span>
+                        <span class="label">Seconds</span>
+                    </div>
+                </div>
+                <a href="#subscribe" class="pixel-button">Get Notified</a>
+                
+                <!-- New Social Sharing Section -->
+                <div class="share-container">
+                    <h3>Spread the word!</h3>
+                    <div class="share-buttons">
+                        <a href="https://wa.me/?text=Join%20me%20in%20QuizSword%2C%20the%20ultimate%20medieval%20quiz%20adventure!%20Coming%20on%20May%2030%2C%202025.%20https%3A%2F%2Fquizsword.com" target="_blank" rel="noopener noreferrer" class="share-button whatsapp" aria-label="Share on WhatsApp">
+                            <div class="share-icon whatsapp-icon"></div>
+                            <span>WhatsApp</span>
+                        </a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fquizsword.com" target="_blank" rel="noopener noreferrer" class="share-button facebook" aria-label="Share on Facebook">
+                            <div class="share-icon facebook-icon"></div>
+                            <span>Facebook</span>
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?text=Join%20me%20in%20QuizSword%2C%20the%20ultimate%20medieval%20quiz%20adventure!%20Coming%20on%20May%2030%2C%202025.&url=https%3A%2F%2Fquizsword.com" target="_blank" rel="noopener noreferrer" class="share-button" aria-label="Share on Twitter">
+                            <div class="share-icon twitter-icon"></div>
+                            <span>Twitter</span>
+                        </a>
+                        <a href="mailto:?subject=Join%20me%20in%20QuizSword&body=Hey!%20I%20thought%20you%20might%20be%20interested%20in%20QuizSword%2C%20a%20new%20medieval-themed%20quiz%20game%20launching%20on%20May%2030%2C%202025.%20Check%20it%20out%20at%20https%3A%2F%2Fquizsword.com" class="share-button email" aria-label="Share via Email">
+                            <div class="share-icon email-icon"></div>
+                            <span>Email</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
-        <section id="subscribe">
-            <h2>Subscribe</h2>
-            <p>Stay updated on the latest news and launch details:</p>
-            <form>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
-                <button type="submit">Subscribe</button>
-            </form>
+
+        <section id="info" class="section-container">
+            <div class="pixel-border">
+                <h2>Info <span class="pixel-icon scroll-icon"></span></h2>
+                <div class="info-content">
+                    <div class="info-text">
+                        <p>QuizSword combines the fun of retro gaming with the power of learning. Create flashcards, study units, and conquer challenges in a medieval-themed world.</p>
+                        <p>Whether you're studying for exams, learning new skills, or expanding your knowledge, QuizSword transforms the process into an epic adventure.</p>
+                    </div>
+                    <div class="mobile-showcase">
+                        <div class="mobile-container">
+                            <img src="public/images/mobile.png" alt="QuizSword mobile app interface" class="mobile-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="section-container">
+            <div class="pixel-border">
+                <h2>Features <span class="pixel-icon shield-icon"></span></h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon flashcard-icon"></div>
+                        <h3>Customizable Flashcards</h3>
+                        <p>Create your own flashcards with text, images, and custom formatting to enhance your learning experience.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon achievement-icon"></div>
+                        <h3>Achievements & Rankings</h3>
+                        <p>Earn badges, level up, and climb the global leaderboards as you master your study materials.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon social-icon"></div>
+                        <h3>Social Features</h3>
+                        <p>Share decks, challenge friends, and join guilds to make learning a collaborative adventure.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon theme-icon"></div>
+                        <h3>Pixel Art Medieval Theme</h3>
+                        <p>Immerse yourself in a charming retro-style world with knights, castles, and magical elements.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="section-container">
+            <div class="pixel-border">
+                <h2>Gallery <span class="pixel-icon castle-icon"></span></h2>
+                <p>Explore the world of QuizSword through these snapshots:</p>
+                <div class="gallery">
+                    <figure class="gallery-item">
+                        <img src="public/images/screenshot1.png" alt="Screenshot of the QuizSword flashcard creation interface" loading="lazy" width="250" height="150">
+                        <figcaption>Create your flashcards with an intuitive interface</figcaption>
+                    </figure>
+                    <figure class="gallery-item">
+                        <img src="public/images/screenshot2.png" alt="Screenshot of the QuizSword achievements page showing unlockable badges" loading="lazy" width="250" height="150">
+                        <figcaption>Unlock achievements as you progress</figcaption>
+                    </figure>
+                    <figure class="gallery-item">
+                        <img src="public/images/screenshot3.png" alt="Screenshot of the QuizSword battle mode where players test their knowledge" loading="lazy" width="250" height="150">
+                        <figcaption>Test your knowledge in battle mode</figcaption>
+                    </figure>
+                    <figure class="gallery-item">
+                        <img src="public/images/screenshot4.png" alt="Screenshot of the QuizSword social hub showing player rankings" loading="lazy" width="250" height="150">
+                        <figcaption>Connect with fellow learners</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section id="subscribe" class="section-container">
+            <div class="pixel-border">
+                <h2>Subscribe <span class="pixel-icon scroll-icon"></span></h2>
+                <p>Stay updated on the latest news and launch details:</p>
+                <form id="subscribe-form" class="subscribe-form" action="public/php/subscribe.php" method="post" aria-label="Newsletter subscription form">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your name" aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" aria-required="true" required>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="newsletter" name="newsletter" checked>
+                        <label for="newsletter">Subscribe to newsletter</label>
+                    </div>
+                    <div class="form-response" id="form-response" aria-live="polite"></div>
+                    <button type="submit" class="pixel-button">Subscribe</button>
+                </form>
+            </div>
         </section>
     </main>
+
     <footer>
-        <p>&copy; 2025 QuizSword. All rights reserved.</p>
+        <div class="animated-rocks-container">
+            <div class="animated-rock" id="animated-rock"></div>
+        </div>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="public/images/quizsword-logo-small.png" alt="QuizSword Logo" width="60" height="60">
+                <p>QuizSword</p>
+            </div>
+            <div class="footer-links">
+                <h3>Links</h3>
+                <ul>
+                    <li><a href="#launch">Launch</a></li>
+                    <li><a href="#info">Info</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#subscribe">Subscribe</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#" aria-label="Twitter"><div class="social-icon twitter"></div></a>
+                    <a href="#" aria-label="Discord"><div class="social-icon discord"></div></a>
+                    <a href="#" aria-label="Instagram"><div class="social-icon instagram"></div></a>
+                    <a href="#" aria-label="TikTok"><div class="social-icon tiktok"></div></a>
+                </div>
+            </div>
+            
+            <!-- New Share Launch Section -->
+            <div class="footer-share">
+                <h3>Share Launch</h3>
+                <div class="share-options">
+                    <a href="https://wa.me/?text=Join%20me%20in%20QuizSword%2C%20the%20ultimate%20medieval%20quiz%20adventure!%20Coming%20on%20May%2030%2C%202025.%20https%3A%2F%2Fquizsword.com" target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp" class="footer-share-link">
+                        <div class="share-icon-small whatsapp-icon"></div>
+                    </a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fquizsword.com" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" class="footer-share-link">
+                        <div class="share-icon-small facebook-icon"></div>
+                    </a>
+                    <a href="https://twitter.com/intent/tweet?text=Join%20me%20in%20QuizSword%2C%20the%20ultimate%20medieval%20quiz%20adventure!%20Coming%20on%20May%2030%2C%202025.&url=https%3A%2F%2Fquizsword.com" target="_blank" rel="noopener noreferrer" aria-label="Share on Twitter" class="footer-share-link">
+                        <div class="share-icon-small twitter-icon"></div>
+                    </a>
+                    <a href="https://www.tiktok.com/share?text=Join%20me%20in%20QuizSword%2C%20the%20ultimate%20medieval%20quiz%20adventure!%20Coming%20on%20May%2030%2C%202025.&url=https%3A%2F%2Fquizsword.com" target="_blank" rel="noopener noreferrer" aria-label="Share on TikTok" class="footer-share-link">
+                        <div class="share-icon-small tiktok-icon"></div>
+                    </a>
+                    <a href="mailto:?subject=Join%20me%20in%20QuizSword&body=Hey!%20I%20thought%20you%20might%20be%20interested%20in%20QuizSword%2C%20a%20new%20medieval-themed%20quiz%20game%20launching%20on%20May%2030%2C%202025.%20Check%20it%20out%20at%20https%3A%2F%2Fquizsword.com" aria-label="Share via Email" class="footer-share-link">
+                        <div class="share-icon-small email-icon"></div>
+                    </a>
+                </div>
+                <p class="share-text">Help spread the word about QuizSword!</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 QuizSword. All rights reserved.</p>
+        </div>
     </footer>
+
+    <script src="src/main.js"></script>
 </body>
 </html>
