@@ -646,3 +646,90 @@ function initParallaxHeader () {
 
 // Initialize parallax header
 initParallaxHeader()
+
+// Initialize theme mode based on stored preference or system preference
+function initThemeMode () {
+  const themeToggle = document.getElementById('theme-toggle')
+  const themeText = themeToggle
+    ? themeToggle.querySelector('.theme-text')
+    : null
+
+  // Check if user has a saved preference
+  const savedTheme = localStorage.getItem('theme')
+
+  // Check if system has a dark mode preference
+  const prefersDarkMode = window.matchMedia(
+    '(prefers-color-scheme: dark)'
+  ).matches
+
+  // Apply theme based on saved preference or system preference
+  if (savedTheme === 'light') {
+    document.body.classList.add('light-mode')
+    if (themeText) themeText.textContent = 'Dark Mode'
+  } else if (savedTheme === 'dark') {
+    document.body.classList.remove('light-mode')
+    if (themeText) themeText.textContent = 'Light Mode'
+  } else if (prefersDarkMode) {
+    // If no saved preference but system prefers dark mode
+    document.body.classList.remove('light-mode')
+    if (themeText) themeText.textContent = 'Light Mode'
+  } else {
+    // Default to dark mode if no preference
+    document.body.classList.remove('light-mode')
+    if (themeText) themeText.textContent = 'Light Mode'
+  }
+
+  // Add click event listener to toggle theme
+  if (themeToggle) {
+    themeToggle.addEventListener('click', toggleTheme)
+  }
+
+  // Listen for system theme changes
+  window
+    .matchMedia('(prefers-color-scheme: dark)')
+    .addEventListener('change', e => {
+      if (!localStorage.getItem('theme')) {
+        if (e.matches) {
+          document.body.classList.remove('light-mode')
+          if (themeText) themeText.textContent = 'Light Mode'
+        } else {
+          document.body.classList.add('light-mode')
+          if (themeText) themeText.textContent = 'Dark Mode'
+        }
+      }
+    })
+}
+
+// Toggle between light and dark mode
+function toggleTheme () {
+  const themeText = document.querySelector('#theme-toggle .theme-text')
+
+  if (document.body.classList.contains('light-mode')) {
+    // Switch to dark mode
+    document.body.classList.remove('light-mode')
+    localStorage.setItem('theme', 'dark')
+    if (themeText) themeText.textContent = 'Light Mode'
+  } else {
+    // Switch to light mode
+    document.body.classList.add('light-mode')
+    localStorage.setItem('theme', 'light')
+    if (themeText) themeText.textContent = 'Dark Mode'
+  }
+
+  // Announce theme change for screen readers
+  const announcement = document.createElement('div')
+  announcement.setAttribute('aria-live', 'polite')
+  announcement.classList.add('sr-only')
+  announcement.textContent = `Theme switched to ${
+    document.body.classList.contains('light-mode') ? 'light' : 'dark'
+  } mode`
+  document.body.appendChild(announcement)
+
+  // Clean up announcement after it's been read
+  setTimeout(() => {
+    document.body.removeChild(announcement)
+  }, 3000)
+}
+
+// Call theme initialization
+initThemeMode()

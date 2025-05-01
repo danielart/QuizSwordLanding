@@ -1,5 +1,6 @@
 /* Base Styles and Variables */
 :root {
+  /* Dark mode colors (default) */
   --primary-color: #5a3e2b;
   --secondary-color: #8b4513;
   --accent-color: #ffcc00;
@@ -9,6 +10,85 @@
   --text-dark: #333;
   --border-pixel: 4px;
   --transition-speed: 0.3s;
+
+  /* Light mode colors (will be applied with .light-mode class) */
+  --light-primary-color: #735d45;
+  /* Aged parchment brown */
+  --light-secondary-color: #a97444;
+  /* Muted warm bronze */
+  --light-accent-color: #bfa134;
+  /* Dull gold */
+  --light-background-dark: #f0e5d8;
+  /* Parchment paper */
+  --light-background-light: #fcf8f2;
+  /* Lighter parchment */
+  --light-text-light: #3b2f2f;
+  /* Ink brown */
+  --light-text-dark: #5c4a3b;
+  /* Faded ink brown */
+}
+
+/* Light mode class for body element */
+body.light-mode {
+  --primary-color: #d0a576;
+  --secondary-color: var(--light-secondary-color);
+  --accent-color: #765e07;
+  --background-dark: var(--light-background-dark);
+  --background-light: var(--light-background-light);
+  --text-light: #1e1e2f;
+  --text-dark: var(--light-text-light);
+  color: var(--text-light);
+}
+
+/* Adjust overlay opacity for light mode */
+body.light-mode::before {
+  background-color: rgba(233, 233, 240, 0.7);
+}
+
+/* Adjust text shadow for light mode headers */
+body.light-mode h1,
+body.light-mode h2,
+body.light-mode h3 {
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Theme toggle button styles */
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  padding: 1rem;
+  transition: all var(--transition-speed);
+}
+
+.theme-toggle:hover {
+  background-color: var(--secondary-color);
+  color: var(--accent-color);
+}
+
+.theme-toggle .theme-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  transition: transform 0.3s ease;
+}
+
+body:not(.light-mode) .theme-toggle .theme-icon {
+  background-image: url('../public/images/sun-icon.png');
+}
+
+body.light-mode .theme-toggle .theme-icon {
+  background-image: url('../public/images/moon-icon.png');
+  transform: rotate(360deg);
 }
 
 /* CSS Reset and Base Styles */
@@ -113,22 +193,6 @@ a:focus {
   text-decoration: underline;
 }
 
-/* Accessibility */
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  padding: 8px;
-  background-color: var(--accent-color);
-  color: var(--text-dark);
-  z-index: 100;
-  transition: top 0.3s;
-}
-
-.skip-link:focus {
-  top: 0;
-}
-
 .sr-only {
   position: absolute;
   width: 1px;
@@ -167,6 +231,7 @@ header {
 .logo-container img {
   margin-bottom: 0.5rem;
   filter: drop-shadow(0 0 5px rgba(255, 204, 0, 0.7));
+  min-width: 40%;
 }
 
 .logo-container h1,
@@ -382,7 +447,7 @@ main {
 
 .pixel-border {
   border: var(--border-pixel) solid var(--primary-color);
-  background-color: rgba(30, 30, 47, 0.8);
+  background-color: rgba(var(--background-dark-rgb), 0.8);
   padding: 1.5rem;
   position: relative;
   overflow: hidden;
@@ -851,21 +916,8 @@ footer {
   margin: 0 auto;
 }
 
-.footer-logo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.footer-logo p {
-  margin-top: 0.5rem;
-  margin-bottom: 0;
-  font-family: 'Press Start 2P', cursive;
-  font-size: 1rem;
-}
-
 .footer-links h3,
+.footer-share h3,
 .footer-social h3 {
   font-size: 1rem;
   margin-bottom: 1rem;
@@ -1170,7 +1222,6 @@ footer {
     justify-content: space-between;
   }
 
-  .footer-logo,
   .footer-links,
   .footer-social {
     flex: 1;

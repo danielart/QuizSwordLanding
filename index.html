@@ -9,7 +9,7 @@
     <title>QuizSword - The Ultimate Medieval Quiz Adventure</title>
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" as="style">
     <link rel="preload" href="public/images/mobile.png" as="image">
-    <link rel="preload" href="public/images/quizsword-logo.png" as="image">
+    <link rel="preload" href="public/images/logo.png" as="image">
 
     <!-- Development/Production CSS detection -->
     <script>
@@ -152,8 +152,6 @@
     <meta property="og:type" content="website">
 </head>
 <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-    
     <header>
         <div class="parallax-header">
             <div class="parallax-layer sky-layer"></div>
@@ -161,9 +159,7 @@
             <div class="parallax-layer clouds-front-layer"></div>
             <div class="header-content">
                 <div class="logo-container">
-
-                    <img src="public/images/quizsword-logo.png" alt="QuizSword Logo" width="120" height="120" loading="lazy">
-                    <h1>QuizSword</h1>
+                    <img src="public/images/logo.png" alt="QuizSword Logo" width="120" height="120" loading="lazy">
                 </div>
                 <p class="tagline">Embark on a medieval journey of knowledge and adventure!</p>
                 <div class="header-decorations">
@@ -185,6 +181,10 @@
             <li><a href="#features" class="nav-link">Features</a></li>
             <li><a href="#gallery" class="nav-link">Gallery</a></li>
             <li><a href="#subscribe" class="nav-link">Subscribe</a></li>
+            <li><button id="theme-toggle" class="theme-toggle nav-link" aria-label="Toggle dark/light mode">
+                <span class="theme-icon"></span>
+                <span class="theme-text">Light Mode</span>
+            </button></li>
         </ul>
     </nav>
 
@@ -335,10 +335,7 @@
     <footer>
        
         <div class="footer-content">
-            <div class="footer-logo">
-                <img src="public/images/quizsword-logo-small.png" alt="QuizSword Logo" width="60" height="60" loading="lazy">
-                <p>QuizSword</p>
-            </div>
+           
             <div class="footer-links">
                 <h3>Links</h3>
                 <ul>
