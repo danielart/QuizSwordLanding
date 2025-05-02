@@ -1,16 +1,68 @@
-// Mobile Menu Toggle
+// Mobile Menu Toggle with enhanced accessibility
 const menuToggle = document.querySelector('.menu-toggle')
 const mainMenu = document.getElementById('main-menu')
+const menuItems = mainMenu ? mainMenu.querySelectorAll('li') : []
 
-if (menuToggle) {
-  menuToggle.addEventListener('click', () => {
+if (menuToggle && mainMenu) {
+  // Function to set item indices for staggered animation
+  function setMenuItemIndices () {
+    menuItems.forEach((item, index) => {
+      item.style.setProperty('--item-index', index)
+    })
+  }
+
+  // Set initial indices
+  setMenuItemIndices()
+
+  // Toggle menu function with accessibility updates
+  function toggleMenu () {
     const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true'
-    menuToggle.setAttribute('aria-expanded', !isExpanded)
-    mainMenu.classList.toggle('active')
+    const newState = !isExpanded
+
+    // Update ARIA states
+    menuToggle.setAttribute('aria-expanded', newState)
+    mainMenu.setAttribute('aria-hidden', !newState)
+
+    // Toggle active class with animation
+    if (newState) {
+      mainMenu.classList.add('active')
+      document.body.style.overflow = 'hidden' // Prevent background scrolling
+
+      // Focus trap for accessibility - focus first item after animation
+      setTimeout(() => {
+        const firstLink = mainMenu.querySelector('a')
+        if (firstLink) firstLink.focus()
+      }, 500)
+    } else {
+      mainMenu.classList.remove('active')
+      document.body.style.overflow = '' // Restore scrolling
+      menuToggle.focus() // Return focus to menu button
+    }
+  }
+
+  // Event listeners
+  menuToggle.addEventListener('click', toggleMenu)
+
+  // Close menu on ESC key for accessibility
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && mainMenu.classList.contains('active')) {
+      toggleMenu()
+    }
+  })
+
+  // Close menu when clicking outside
+  document.addEventListener('click', e => {
+    if (
+      mainMenu.classList.contains('active') &&
+      !mainMenu.contains(e.target) &&
+      e.target !== menuToggle
+    ) {
+      toggleMenu()
+    }
   })
 }
 
-// Smooth scrolling for navigation links
+// Smooth scrolling for navigation links with menu closing
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault()
@@ -21,15 +73,25 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     const targetElement = document.querySelector(targetId)
     if (targetElement) {
       // Close mobile menu if it's open
-      if (mainMenu && mainMenu.classList.contains('active')) {
-        mainMenu.classList.remove('active')
+      if (mainMenu && mainMenu.classList.contains('active') && menuToggle) {
         menuToggle.setAttribute('aria-expanded', 'false')
+        mainMenu.classList.remove('active')
+        mainMenu.setAttribute('aria-hidden', 'true')
+        document.body.style.overflow = '' // Restore scrolling
       }
 
+      // Scroll to target
       targetElement.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
       })
+
+      // Set focus to target for better accessibility
+      targetElement.setAttribute('tabindex', '-1')
+      targetElement.focus({ preventScroll: true })
+
+      // Update URL hash without jumping
+      history.pushState(null, null, targetId)
     }
   })
 })
@@ -647,73 +709,24 @@ function initParallaxHeader () {
 // Initialize parallax header
 initParallaxHeader()
 
-// Initialize theme mode based on stored preference or system preference
-function initThemeMode () {
-  const themeToggle = document.getElementById('theme-toggle')
-  const themeText = themeToggle
-    ? themeToggle.querySelector('.theme-text')
-    : null
-
-  // Check if user has a saved preference
-  const savedTheme = localStorage.getItem('theme')
-
-  // Check if system has a dark mode preference
-  const prefersDarkMode = window.matchMedia(
-    '(prefers-color-scheme: dark)'
-  ).matches
-
-  // Apply theme based on saved preference or system preference
-  if (savedTheme === 'light') {
-    document.body.classList.add('light-mode')
-    if (themeText) themeText.textContent = 'Dark Mode'
-  } else if (savedTheme === 'dark') {
-    document.body.classList.remove('light-mode')
-    if (themeText) themeText.textContent = 'Light Mode'
-  } else if (prefersDarkMode) {
-    // If no saved preference but system prefers dark mode
-    document.body.classList.remove('light-mode')
-    if (themeText) themeText.textContent = 'Light Mode'
-  } else {
-    // Default to dark mode if no preference
-    document.body.classList.remove('light-mode')
-    if (themeText) themeText.textContent = 'Light Mode'
-  }
-
-  // Add click event listener to toggle theme
-  if (themeToggle) {
-    themeToggle.addEventListener('click', toggleTheme)
-  }
-
-  // Listen for system theme changes
-  window
-    .matchMedia('(prefers-color-scheme: dark)')
-    .addEventListener('change', e => {
-      if (!localStorage.getItem('theme')) {
-        if (e.matches) {
-          document.body.classList.remove('light-mode')
-          if (themeText) themeText.textContent = 'Light Mode'
-        } else {
-          document.body.classList.add('light-mode')
-          if (themeText) themeText.textContent = 'Dark Mode'
-        }
-      }
-    })
-}
-
 // Toggle between light and dark mode
 function toggleTheme () {
-  const themeText = document.querySelector('#theme-toggle .theme-text')
+  const themeIcon = document.querySelector('#theme-toggle img.theme-icon')
 
   if (document.body.classList.contains('light-mode')) {
     // Switch to dark mode
     document.body.classList.remove('light-mode')
     localStorage.setItem('theme', 'dark')
-    if (themeText) themeText.textContent = 'Light Mode'
+    if (themeIcon) {
+      themeIcon.src = 'public/images/sun-icon.png'
+    }
   } else {
     // Switch to light mode
     document.body.classList.add('light-mode')
     localStorage.setItem('theme', 'light')
-    if (themeText) themeText.textContent = 'Dark Mode'
+    if (themeIcon) {
+      themeIcon.src = 'public/images/moon-icon.png'
+    }
   }
 
   // Announce theme change for screen readers
@@ -729,6 +742,69 @@ function toggleTheme () {
   setTimeout(() => {
     document.body.removeChild(announcement)
   }, 3000)
+}
+
+// Initialize theme mode based on stored preference or system preference
+function initThemeMode () {
+  const themeToggle = document.getElementById('theme-toggle')
+  const themeIcon = document.querySelector('#theme-toggle img.theme-icon')
+
+  // Check if user has a saved preference
+  const savedTheme = localStorage.getItem('theme')
+
+  // Check if system has a dark mode preference
+  const prefersDarkMode = window.matchMedia(
+    '(prefers-color-scheme: dark)'
+  ).matches
+
+  // Apply theme based on saved preference or system preference
+  if (savedTheme === 'light') {
+    document.body.classList.add('light-mode')
+    if (themeIcon) {
+      themeIcon.src = 'public/images/moon-icon.png'
+    }
+  } else if (savedTheme === 'dark') {
+    document.body.classList.remove('light-mode')
+    if (themeIcon) {
+      themeIcon.src = 'public/images/sun-icon.png'
+    }
+  } else if (prefersDarkMode) {
+    // If no saved preference but system prefers dark mode
+    document.body.classList.remove('light-mode')
+    if (themeIcon) {
+      themeIcon.src = 'public/images/sun-icon.png'
+    }
+  } else {
+    // Default to dark mode if no preference
+    document.body.classList.remove('light-mode')
+    if (themeIcon) {
+      themeIcon.src = 'public/images/sun-icon.png'
+    }
+  }
+
+  // Add click event listener to toggle theme
+  if (themeToggle) {
+    themeToggle.addEventListener('click', toggleTheme)
+  }
+
+  // Listen for system theme changes
+  window
+    .matchMedia('(prefers-color-scheme: dark)')
+    .addEventListener('change', e => {
+      if (!localStorage.getItem('theme')) {
+        if (e.matches) {
+          document.body.classList.remove('light-mode')
+          if (themeIcon) {
+            themeIcon.src = 'public/images/sun-icon.png'
+          }
+        } else {
+          document.body.classList.add('light-mode')
+          if (themeIcon) {
+            themeIcon.src = 'public/images/moon-icon.png'
+          }
+        }
+      }
+    })
 }
 
 // Call theme initialization

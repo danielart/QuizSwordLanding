@@ -175,18 +175,19 @@
             <span class="sr-only">Menu</span>
             <span class="menu-icon"></span>
         </button>
-        <ul id="main-menu">
-            <li><a href="#launch" class="nav-link">Launch</a></li>
-            <li><a href="#info" class="nav-link">Info</a></li>
-            <li><a href="#features" class="nav-link">Features</a></li>
-            <li><a href="#gallery" class="nav-link">Gallery</a></li>
-            <li><a href="#subscribe" class="nav-link">Subscribe</a></li>
-            <li><button id="theme-toggle" class="theme-toggle nav-link" aria-label="Toggle dark/light mode">
-                <span class="theme-icon"></span>
-                <span class="theme-text">Light Mode</span>
-            </button></li>
+        <ul id="main-menu" aria-hidden="false">
+            <li style="--item-index: 0;"><a href="#launch" class="nav-link">Launch</a></li>
+            <li style="--item-index: 1;"><a href="#info" class="nav-link">Info</a></li>
+            <li style="--item-index: 2;"><a href="#features" class="nav-link">Features</a></li>
+            <li style="--item-index: 3;"><a href="#gallery" class="nav-link">Gallery</a></li>
+            <li style="--item-index: 4;"><a href="#subscribe" class="nav-link">Subscribe</a></li>
         </ul>
     </nav>
+
+    <!-- Theme toggle button as a fixed floating button -->
+    <button id="theme-toggle" class="theme-toggle-fixed" aria-label="Toggle dark/light mode">
+        <img src="public/images/sun-icon.png" alt="Theme icon" class="theme-icon" width="24" height="24">
+    </button>
 
     <main id="main-content">
         <section id="launch" class="section-container">

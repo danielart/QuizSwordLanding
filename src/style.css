@@ -83,12 +83,52 @@ body.light-mode h3 {
 }
 
 body:not(.light-mode) .theme-toggle .theme-icon {
-  background-image: url('../public/images/sun-icon.png');
+  background-image: url('../images/sun-icon.png');
 }
 
 body.light-mode .theme-toggle .theme-icon {
-  background-image: url('../public/images/moon-icon.png');
+  background-image: url('../images/moon-icon.png');
   transform: rotate(360deg);
+}
+
+/* Theme toggle button styles - fixed position version */
+.theme-toggle-fixed {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 100;
+  width: 48px;
+  height: 48px;
+  padding-bottom: 8px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: none;
+  overflow: hidden;
+  background-image: url('../public/images/Button_Hover.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.theme-toggle-fixed:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.theme-toggle-fixed:active {
+  transform: translateY(0) scale(0.95);
+}
+
+.theme-toggle-fixed img.theme-icon {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+  object-fit: contain;
 }
 
 /* CSS Reset and Base Styles */
@@ -395,20 +435,46 @@ nav li {
 /* Mobile Menu */
 .menu-toggle {
   display: none;
-  background: none;
+  position: fixed;
+  top: 15px;
+  right: 70px;
+  /* Position to the left of the theme toggle */
+  z-index: 100;
+  width: 48px;
+  height: 48px;
   border: none;
-  padding: 1rem;
+  background-color: transparent;
+  padding-bottom: 8px;
   cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  background-image: url('../public/images/Button_Hover.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-position: center center;
+  box-shadow: none;
+  transition: all 0.3s ease;
+}
+
+.menu-toggle:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.menu-toggle:active {
+  transform: translateY(0) scale(0.95);
 }
 
 .menu-icon,
 .menu-icon::before,
 .menu-icon::after {
   display: block;
-  width: 25px;
+  width: 22px;
   height: 3px;
   background-color: var(--text-light);
   position: relative;
+  transition: all 0.3s ease-in-out;
 }
 
 .menu-icon::before,
@@ -423,6 +489,21 @@ nav li {
 
 .menu-icon::after {
   bottom: -8px;
+}
+
+/* Animated menu icon (hamburger to X) */
+.menu-toggle[aria-expanded="true"] .menu-icon {
+  background: transparent;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-icon::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] .menu-icon::after {
+  bottom: 0;
+  transform: rotate(-45deg);
 }
 
 /* Main Content */
@@ -1241,32 +1322,83 @@ footer {
 /* Responsive Navigation */
 @media (max-width: 767px) {
   .menu-toggle {
-    display: block;
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 20;
+    display: flex;
   }
 
   #main-menu {
     position: fixed;
     top: 0;
-    right: -200px;
-    width: 200px;
+    right: -100%;
+    width: 100%;
     height: 100vh;
-    background-color: var(--primary-color);
+    background-color: rgba(var(--background-dark-rgb), 0.95);
+    backdrop-filter: blur(5px);
+    display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    padding-top: 4rem;
-    transition: right var(--transition-speed);
-    z-index: 15;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    z-index: 99;
+    padding: 2rem;
+    overflow-y: auto;
+    /* Allow scrolling if needed */
   }
 
   #main-menu.active {
     right: 0;
   }
 
+  #main-menu li {
+    transform: translateY(50px);
+    opacity: 0;
+    transition: all 0.4s ease;
+    transition-delay: calc(0.1s * var(--item-index, 0));
+    width: 80%;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  #main-menu.active li {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
   .nav-link {
-    padding: 1rem 2rem;
+    padding: 1.2rem 2rem;
+    font-size: 1.2rem;
+    text-align: center;
+    width: 100%;
+    display: block;
+    border-radius: 8px;
+    border: 2px solid var(--primary-color);
+    background-color: rgba(var(--secondary-color-rgb), 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .nav-link:hover,
+  .nav-link:focus {
+    background-color: rgba(var(--secondary-color-rgb), 0.4);
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-color: var(--accent-color);
+  }
+
+  /* Accessibility - keyboard focus indicator */
+  .nav-link:focus-visible {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 3px;
+  }
+
+  /* Animate menu items on open */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
